@@ -40,21 +40,30 @@ let myObject = {
 };
 
 /* the test */
-/* Object 0 */
-let obj0 = myObject.create(null);
-obj0.func = function(arg) { return 'func0: ' + arg; };
+function runTestObject() {
+	let divRun = document.getElementById('runningTest');
 
-/* Object 1 */
-let obj1 = myObject.create([obj0]);
+	divRun.innerHTML += 'creating object 0 1 2 and 3<br/>'; 
+	/* Object 0 */
+	let obj0 = myObject.create(null);
+	obj0.func = function(arg) { return 'func0: ' + arg; };
 
-/* Object 2 */
-let obj2 = myObject.create([]);
-obj2.func = function(arg) { return 'func2: ' + arg; };
+	/* Object 1 */
+	let obj1 = myObject.create([obj0]);
 
-/* Object 3 */
-let obj3 = myObject.create([obj1, obj2]);
+	/* Object 2 */
+	let obj2 = myObject.create([]);
+	obj2.func = function(arg) { return 'func2: ' + arg; };
 
-let result = obj3.call('func', ['hello']);
-if (result === 'func0: hello') {
-	console.log('part 1 done !');
+	/* Object 3 */
+	let obj3 = myObject.create([obj1, obj2]);
+
+	divRun.innerHTML += 'calling obj3.func() with parameters [\'hello\']<br/>'; 
+	let result = obj3.call('func', ['hello']);
+	if (result === 'func0: hello') {
+		divRun.innerHTML += 'result is func0: hello<br/>'; 
+		console.log('part 1 done !');
+		return 0;
+	}
+	return 1;
 }

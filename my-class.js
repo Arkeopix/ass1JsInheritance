@@ -24,7 +24,7 @@ function createClass(className, superClassList) {
 		}
 	};
 	newClass.new = function() {
-		return this;
+		return Object.create(this);
 	};
 	newClass.call = function(funcName, parameters) {
 		return this._searchAndExecute(this, funcName, parameters);
@@ -41,24 +41,29 @@ function createClass(className, superClassList) {
 }
 
 /* the test */
-let class0 = createClass('Class0', null);
-class0.func = function(arg) { return "func0: " + arg; };
-console.log(class0);
+function runTestClass() {
+	let divRun = document.getElementById('runningTest');
+	
+	divRun.innerHTML += 'Creating class0, 1, 2 and 3<br/>'
+	let class0 = createClass('Class0', null);
+	class0.func = function(arg) { return "func0: " + arg; };
+	
+	let class1 = createClass("Class1", [class0]);
 
-let class1 = createClass("Class1", [class0]);
-console.log(class1);
+	let class2 = createClass("Class2", []);
+	class2.func = function(arg) { return "func2: " + arg; };
 
-let class2 = createClass("Class2", []);
-class2.func = function(arg) { return "func2: " + arg; };
-console.log(class2);
+	let class3 = createClass("Class3", [class1, class2]);
 
-let class3 = createClass("Class3", [class1, class2]);
-console.log(class3);
+	divRun.innerHTML += 'creating obj3<br/>'
+	let obj3 = class3.new();
 
-let obj3 = class3.new();
-console.log(obj3);
-
-let result = obj3.call('func', ['hello']);
-if (result === 'func0: hello') {
-	console.log('part 2 done !');
+	divRun.innerHTML += 'calling obj3.func() with parameter [\'hello\']<br/>'
+	let result = obj3.call('func', ['hello']);
+	if (result === 'func0: hello') {
+		divRun.innerHTML += 'result is func0: hello';
+		console.log('part 2 done !');
+		return 0;
+	}
+	return 1;
 }

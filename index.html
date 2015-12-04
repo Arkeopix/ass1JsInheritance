@@ -3,5 +3,14 @@
   <meta charset="UTF-8"> 
   <script type="application/javascript;version=1.7" src="my-object.js"></script>
   <script type="application/javascript;version=1.7" src="my-class.js"></script>
+  <script type="application/javascript;version=1.7">
+	window.onload=function(){if(runTestClass()===0&&runTestObject()=== 0){
+	let divResult = document.getElementById('result');
+	divResult.innerHTML = 'GREAT SUCCESS !!<br/>';
+	divResult.innerHTML += "<img src='./boratgif1.GIF' title='only appears if both test function returns 0'/>";}}
+  </script>
+  <div id='runningTest'></div>
+  <div id='result'></div>
+  <p> Circular inheritance is still a problem, but who really uses circular inheritance anyway ?</p>
 </html>
 
